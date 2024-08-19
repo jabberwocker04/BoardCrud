@@ -2,8 +2,12 @@ package CRUD.demo.domain;
 
 import jakarta.persistence.*;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import static jakarta.persistence.FetchType.LAZY;
 
 @Table(name = "board_post")
 @Entity
@@ -19,5 +23,6 @@ public class BoardPost {
     private int views;
     private int recommands;
     private String content;
+
 
 }
