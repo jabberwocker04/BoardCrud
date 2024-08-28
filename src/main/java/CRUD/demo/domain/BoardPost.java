@@ -16,7 +16,7 @@ public class BoardPost {
 
     @Id
     @Column(name = "board_id")
-    private int boardId;
+    private int boardId; // sequence
     private String category;
     private String title;
     private String author;

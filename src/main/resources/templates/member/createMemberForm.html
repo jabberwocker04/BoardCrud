@@ -9,21 +9,30 @@
 <body>
 
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
 
     <form role="form" action="/member/new" th:object="${memberForm}" method="post">
+<!--        form에 있는 action="/member/new"로 controller가 GET/POST를 하는 것 같다.-->
         <div class="form-group">
             <label th:for="MemberId">ID</label>
 
             <input type="text" th:field="*{MemberId}" class="form-control" placeholder="ID를 입력하세요"
                    th:class="${#fields.hasErrors('MemberId')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('MemberId')}" th:errors="*{name}">Incorrect date</p>
+            <p th:if="${#fields.hasErrors('MemberId')}" th:errors="*{MemberId}">Incorrect date</p>
             <!--filed.hasErrors라는 에러가 있으면 name field에 대헤서 에러 메세지를 뽑아서 출력해준다. -> 적어놓은 에러로 렌더링이 된다.-->
         </div>
         <div class="form-group">
             <label th:for="Password">비밀번호</label>
             <input type="text" th:field="*{Password}" class="form-control" placeholder="비밀번호를 입력하세요">
         </div>
+
+<!--        <div class="form-group">-->
+<!--            <label th:for="role">비밀번호</label>-->
+<!--            <input type="text" th:field="*{role}" class="form-control" placeholder="role을 선택하세요">-->
+<!--        </div>-->
+<!-- Role을 Admin, User로 나누어 선택하게.......................-->
+<!--   접근 URI에 따라 Role을 자동으로 배정하는 방법도 괜찮을 것 같다. 2024 08 20     -->
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br/>
