@@ -18,6 +18,11 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    /*
+    * Create
+    * */
+
+
     @GetMapping(value = "/member/new") // 회원가입 컨트롤러
     public String createForm (Model model) {
         model.addAttribute("memberForm", new MemberForm());
@@ -44,6 +49,9 @@ public class MemberController {
         return "redirect:/"; // 이렇게 하면 첫번째 페이지로 넘어간다.
     }
 
+    /*
+    * Select(Read Member) List
+    * */
 
     @GetMapping("member/MemberList") // 맴버 목록 Get
     public String list(Model model){
@@ -52,6 +60,10 @@ public class MemberController {
         System.out.println("member List!");
         return "member/MemberList";
     }
+
+    /*
+    * Update
+    * */
 
     @GetMapping("member/{sequence}/edit")
     public String updateMember(@PathVariable("sequence")Long sequence, Model model){
@@ -76,6 +88,10 @@ public class MemberController {
 
         return "redirect:/member/MemberList";
     }
+
+    /*
+    * Delete
+    * */
 
     @RequestMapping(value = "member/{sequence}/delete", method = RequestMethod.GET)
     public String DeleteController(@PathVariable int sequence){

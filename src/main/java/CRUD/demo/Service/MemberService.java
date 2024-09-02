@@ -14,37 +14,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final Member_Repository memberRepository;
-    private final MemberRepository memberRepository_Interface;
+    private final Member_Repository member_Repository; // Class Repository
+    private final MemberRepository memberRepository; // Interface Repository
 
     @Transactional
     public int join(Member member){
 
-        memberRepository.save(member);
+        member_Repository.save(member);
         return member.getSequence();
     }
-
 
     //맴버 전체 조회(select)
     @Transactional
     public List<Member> findMembers(){
-        return memberRepository.findAll();
+        return member_Repository.findAll();
     }
 
-    //맴버 단 건 조회(select)
+    //맴버 Update를 위한 맴버 단 건 조회(select)
     @Transactional(readOnly = true)
     public Member findOne(Long sequence){
-        return memberRepository.findOne(sequence);
+        return member_Repository.findOne(sequence);
     }
 
-    //맴버 전체 조회(sequence), select
-    @Transactional(readOnly = true)
-    public List<Member> findMembers(Long sequence){return memberRepository.findBySequence(sequence);}
+//    //맴버 전체 조회(sequence), select
+//    @Transactional(readOnly = true)
+//    public List<Member> findMembers(Long sequence){return member_Repository.findBySequence(sequence);}
 
     //맴버 수정(update)
     @Transactional
     public void updateMember(Long sequence, String memberId, int password, String role) {
-        Member findMember = memberRepository.findOne(sequence);
+        Member findMember = member_Repository.findOne(sequence);
         findMember.setMemberId(memberId);
         findMember.setPassword(password);
         findMember.setRole(role);
@@ -54,16 +53,16 @@ public class MemberService {
     @Transactional
     public void deleteMember(Long sequence){
         //맴버 엔티티 조회
-        Member member = memberRepository.findOne(sequence);
+        Member member = member_Repository.findOne(sequence);
         //맴버 삭제
 
-        memberRepository.delete(sequence);
+        member_Repository.delete(sequence);
         //
     }
 
     @Transactional
     public void delete(int sequence){
-        memberRepository_Interface.deleteBySequence(sequence);
+        memberRepository.deleteBySequence(sequence);
         System.out.println(sequence+"is Deleted!");
     }
 

@@ -6,7 +6,8 @@ import lombok.Setter;
 import jakarta.validation.constraints.NotEmpty;
 
 
-@Getter @Setter
+@Getter
+@Setter
 public class MemberForm {
 
     private int sequence;

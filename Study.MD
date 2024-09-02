@@ -57,4 +57,27 @@
 > 현재는 @Transactional을 Method에 붙여주어 수정이 되게 하였다.
 
 2024 08 23
+> 계속해서 Get 에러로 인해 PostMapping 방식으로 Delete를 하는 것이 아닌 RequestMapping 의 Get을 사용해서 요청을 받음.
+> 
 
+2024 09 02
+> CRUD Board_Post Mapping부분
+            <tr th:each="board_Post : ${boardPostList}">
+
+                <!--board_post Root Entity를 못찾는다고 했다. th:each="board_post"를 th:each=""로 바꾸어서 진행.-->
+
+                <td th:text="${board_Post.boardId}"></td>
+                <td th:text="${board_Post.recommands}"></td>
+                <td th:text="${board_Post.author}"></td>
+                <td th:text="${board_Post.category}"></td>
+                <td th:text="${board_Post.content}"></td>
+                <td th:text="${board_Post.title}"></td>
+                <td th:text="${board_Post.views}"></td>
+                <td>
+                    <a href="#" th:href="@{/post/{board_id}/edit (boardId=${board_Post.boardId})}" class="btn btn-primary" role="button">게시글 수정</a>
+                </td>
+                <td>
+                    <a href="#" th:href="@{/post/{sequence}/delete (boardId=${board_Post.boardId})}" class="btn btn-danger" role="button">게시글 삭제</a>
+                </td>
+            </tr>
+> board_Post로 Mapping을 받는다.

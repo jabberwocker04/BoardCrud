@@ -33,6 +33,7 @@ public class Member_Repository {
                 .getResultList();
     }
 
+    // Select 단 건 조회
     public Member findOne(Long sequence){
         return em.find(Member.class, sequence);
     }

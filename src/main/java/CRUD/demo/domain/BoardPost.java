@@ -15,14 +15,15 @@ import static jakarta.persistence.FetchType.LAZY;
 public class BoardPost {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
-    private int boardId; // sequence
-    private String category;
-    private String title;
-    private String author;
-    private int views;
-    private int recommands;
-    private String content;
+    private int boardId; // 게시글 순서
+    private String category; // 게시글 카테고리
+    private String title; // 게시글 제목
+    private String author; //게시글 글쓴이
+    private String content; // 게시글 내용
+    private int views; // 게시글 이미지
+    private int recommands; // 게시글 댓글
 
 
 }
