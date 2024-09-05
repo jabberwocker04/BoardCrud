@@ -66,7 +66,7 @@
 
                 <!--board_post Root Entity를 못찾는다고 했다. th:each="board_post"를 th:each=""로 바꾸어서 진행.-->
 
-                <td th:text="${board_Post.boardId}"></td>
+                <td th:text="${board_Post.board_sequence}"></td>
                 <td th:text="${board_Post.recommands}"></td>
                 <td th:text="${board_Post.author}"></td>
                 <td th:text="${board_Post.category}"></td>
@@ -74,10 +74,15 @@
                 <td th:text="${board_Post.title}"></td>
                 <td th:text="${board_Post.views}"></td>
                 <td>
-                    <a href="#" th:href="@{/post/{board_id}/edit (boardId=${board_Post.boardId})}" class="btn btn-primary" role="button">게시글 수정</a>
+                    <a href="#" th:href="@{/post/{board_id}/edit (board_sequence=${board_Post.board_sequence})}" class="btn btn-primary" role="button">게시글 수정</a>
                 </td>
                 <td>
-                    <a href="#" th:href="@{/post/{sequence}/delete (boardId=${board_Post.boardId})}" class="btn btn-danger" role="button">게시글 삭제</a>
+                    <a href="#" th:href="@{/post/{sequence}/delete (board_sequence=${board_Post.board_sequence})}" class="btn btn-danger" role="button">게시글 삭제</a>
                 </td>
             </tr>
 > board_Post로 Mapping을 받는다.
+> Thymeleaf와 Spring간의 Mapping 이 항상 문제였는데, 주로 어디가 매핑되는 지는 잘 알아도, 대소문자 구분으로 인해서 매핑이 잘 안되던 부분이 많았다.
+> Entity(Domanin)에서의 SQL과의 매핑만 잘 신경 써주면 주로 백엔드단과 프론트단의 대소문자로 인한 매핑 문제만 잘 봐주면 된다.
+
+2024 09 05
+> Member, BoardPost Entity명 변경 및 추가 후 에러 수정

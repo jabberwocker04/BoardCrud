@@ -1,9 +1,5 @@
-package CRUD.demo.Service;
+package CRUD.demo.BoardPost;
 
-import CRUD.demo.Repository.BoardPostRepository;
-import CRUD.demo.Repository.BoardPost_Repository;
-import CRUD.demo.domain.BoardPost;
-import CRUD.demo.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +19,7 @@ public class BoardPostService {
     public int join(BoardPost boardPost){
 
         boardPost_Repository.save(boardPost); // 게시글 작성(save, BoardPost Create)을 위해 BoardPost 매핑
-        return boardPost.getBoardId();
+        return boardPost.getBoardSequence();
     }
 
     //게시글 전체 조회
@@ -34,10 +30,10 @@ public class BoardPostService {
 
     //게시글 생성(Create)
     @Transactional
-    public void createBoardPost(int boardId, String category, String title, String author, int views, String content) {
-        BoardPost findBoardPost = boardPost_Repository.findById(boardId);
+    public void createBoardPost(int board_sequence, String category, String title, String author, int views, String content) {
+        BoardPost findBoardPost = boardPost_Repository.findByBoard_sequence(board_sequence);
         findBoardPost.setCategory(category);
-        findBoardPost.setBoardId(boardId);
+        findBoardPost.setBoardSequence(board_sequence);
         findBoardPost.setTitle(title);
         findBoardPost.setAuthor(author);
         findBoardPost.setContent(content);
@@ -45,10 +41,10 @@ public class BoardPostService {
 
     }
 
-    //Update를 하기 위한 BoardId 단 건 조회(select)
+    //Update를 하기 위한 board_sequence 단 건 조회(select)
     @Transactional(readOnly = true)
-    public BoardPost findOne(int BoardId){
-        return boardPost_Repository.findOne(BoardId);
+    public BoardPost findOne(int board_sequence){
+        return boardPost_Repository.findOne(board_sequence);
     }
 
 //    //맴버 전체 조회(sequence), select
@@ -57,28 +53,28 @@ public class BoardPostService {
 
     //맴버 수정(update)
     @Transactional
-    public void updateBoardPost(int boardId, String category, String title, String content) {
-        BoardPost findBoardPost = boardPost_Repository.findOne(boardId);
+    public void updateBoardPost(int board_sequence, String category, String title, String content) {
+        BoardPost findBoardPost = boardPost_Repository.findOne(board_sequence);
         findBoardPost.setCategory(category);
         findBoardPost.setTitle(title);
         findBoardPost.setContent(content);
     }
 
     //맴버 삭제(delete)
-    @Transactional
-    public void deleteMember(int boardId){
-        //맴버 엔티티 조회
-        BoardPost boardPost = boardPost_Repository.findOne(boardId);
-        //맴버 삭제
-
-        boardPost_Repository.delete(boardId);
-        //
-    }
-
-    @Transactional
-    public void delete(int boardId){
-        boardPostRepository.deleteByBoardId(boardId);
-        System.out.println(boardId+"is Deleted!");
-    }
+//    @Transactional
+//    public void deleteMember(int board_sequence){
+//        //맴버 엔티티 조회
+//        BoardPost boardPost = boardPost_Repository.findOne(board_sequence);
+//        //맴버 삭제
+//
+//        boardPost_Repository.delete(board_sequence);
+//        //
+//    }
+//
+//    @Transactional
+//    public void delete(int board_sequence){
+//        boardPostRepository.deleteByBoardSequence(board_sequence);
+//        System.out.println(board_sequence+"is Deleted!");
+//    }
 
 }

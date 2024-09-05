@@ -14,9 +14,9 @@
     <form role="form" action="/post/new" th:object="${boardPostForm}" method="post">
         <!--        form에 있는 action="/member/new"로 controller가 GET/POST를 하는 것 같다.-->
             <!--        <div class="form-group">-->
-            <!--            <label th:for="BoardId">BoardID</label>-->
+            <!--            <label th:for="board_sequence">board_sequence</label>-->
 
-            <!--            <input type="text" th:field="*{title}" class="form-control" placeholder="BoardID"-->
+            <!--            <input type="text" th:field="*{title}" class="form-control" placeholder="board_sequence"-->
             <!--                   th:class="${#fields.hasErrors('title')}? 'form-control fieldError' : 'form-control'">-->
             <!--            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Incorrect date</p>-->
             <!--filed.hasErrors라는 에러가 있으면 name field에 대헤서 에러 메세지를 뽑아서 출력해준다. -> 적어놓은 에러로 렌더링이 된다.-->

@@ -1,8 +1,5 @@
-package CRUD.demo.Service;
+package CRUD.demo.Member;
 
-import CRUD.demo.Repository.MemberRepository;
-import CRUD.demo.Repository.Member_Repository;
-import CRUD.demo.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +18,7 @@ public class MemberService {
     public int join(Member member){
 
         member_Repository.save(member);
-        return member.getSequence();
+        return member.getMemberSequence();
     }
 
     //맴버 전체 조회(select)
@@ -32,8 +29,8 @@ public class MemberService {
 
     //맴버 Update를 위한 맴버 단 건 조회(select)
     @Transactional(readOnly = true)
-    public Member findOne(Long sequence){
-        return member_Repository.findOne(sequence);
+    public Member findOne(int memberSequence){
+        return member_Repository.findOne(memberSequence);
     }
 
 //    //맴버 전체 조회(sequence), select
@@ -42,28 +39,28 @@ public class MemberService {
 
     //맴버 수정(update)
     @Transactional
-    public void updateMember(Long sequence, String memberId, int password, String role) {
-        Member findMember = member_Repository.findOne(sequence);
-        findMember.setMemberId(memberId);
+    public void updateMember(int memberSequence, String member_id, int password, String role) {
+        Member findMember = member_Repository.findOne(memberSequence);
+        findMember.setMember_id(member_id);
         findMember.setPassword(password);
         findMember.setRole(role);
     }
 
     //맴버 삭제(delete)
     @Transactional
-    public void deleteMember(Long sequence){
+    public void deleteMember(int memberSequence){
         //맴버 엔티티 조회
-        Member member = member_Repository.findOne(sequence);
+        Member member = member_Repository.findOne(memberSequence);
         //맴버 삭제
 
-        member_Repository.delete(sequence);
+        member_Repository.delete(memberSequence);
         //
     }
 
     @Transactional
-    public void delete(int sequence){
-        memberRepository.deleteBySequence(sequence);
-        System.out.println(sequence+"is Deleted!");
+    public void delete(int memberSequence){
+        memberRepository.deleteByMemberSequence(memberSequence);
+        System.out.println(memberSequence + "is Deleted!");
     }
 
 

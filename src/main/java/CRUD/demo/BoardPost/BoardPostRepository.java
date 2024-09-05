@@ -1,15 +1,14 @@
-package CRUD.demo.Repository;
+package CRUD.demo.BoardPost;
 
-import CRUD.demo.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @EnableJpaRepositories
-public interface MemberRepository extends JpaRepository<Member, Integer> {
+public interface BoardPostRepository extends JpaRepository<BoardPost, Integer> {
 
-    void deleteBySequence(int sequence);
 
+//    void deleteByBoardSequence(int board_sequence) ;
 
 }

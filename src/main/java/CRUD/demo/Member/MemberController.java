@@ -1,10 +1,7 @@
-package CRUD.demo.controller;
+package CRUD.demo.Member;
 
-import CRUD.demo.Service.MemberService;
-import CRUD.demo.domain.Member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,7 +38,7 @@ public class MemberController {
         } // 그리고 Thymeleaf의 코드를 참조해서 사용게 된다.(createMemberForm의 field.haserrors 부분 참고.
 
         Member member = new Member();
-        member.setMemberId(memberform.getMemberId());
+        member.setMember_id(memberform.getMember_id());
         member.setPassword(memberform.getPassword());
         member.setRole("temp");
 
@@ -65,14 +62,13 @@ public class MemberController {
     * Update
     * */
 
-    @GetMapping("member/{sequence}/edit")
-    public String updateMember(@PathVariable("sequence")Long sequence, Model model){
+    @GetMapping("member/{memberSequence}/edit")
+    public String updateMember(@PathVariable("memberSequence")int memberSequence, Model model){
 
-        Member member = memberService.findOne(sequence);
+        Member member = memberService.findOne(memberSequence);
 
         MemberForm memberform = new MemberForm();
-        memberform.setSequence(member.getSequence());
-        memberform.setMemberId(member.getMemberId());
+        memberform.setMember_id(member.getMember_id()); // setsequence로 되어있어서 중복되는 오류가 발생하고 있었다.
         memberform.setPassword(member.getPassword());
         memberform.setRole("Edit Role!!");
 
@@ -81,10 +77,10 @@ public class MemberController {
         return "member/updateMemberForm";
     }
 
-    @PostMapping("member/{sequence}/edit")
-    public String updateMember(@PathVariable Long sequence, @ModelAttribute("form") MemberForm memberForm){
+    @PostMapping("member/{memberSequence}/edit")
+    public String updateMember(@PathVariable int memberSequence, @ModelAttribute("form") MemberForm memberForm){
 
-        memberService.updateMember(sequence, memberForm.getMemberId(), memberForm.getPassword(), memberForm.getRole());
+        memberService.updateMember(memberSequence, memberForm.getMember_id(), memberForm.getPassword(), memberForm.getRole());
 
         return "redirect:/member/MemberList";
     }
@@ -93,11 +89,11 @@ public class MemberController {
     * Delete
     * */
 
-    @RequestMapping(value = "member/{sequence}/delete", method = RequestMethod.GET)
-    public String DeleteController(@PathVariable int sequence){
+    @RequestMapping(value = "member/{memberSequence}/delete", method = RequestMethod.GET)
+    public String DeleteController(@PathVariable int memberSequence){
         System.out.println("Delete controller 실행");
 
-        memberService.delete(sequence);
+        memberService.delete(memberSequence);
         return "redirect:/";
     }
 

@@ -9,23 +9,23 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Sequence</th>
-                <th>MemberId</th>
+                <th>memberSequence</th>
+                <th>memberId</th>
                 <th>Password</th>
                 <th>role</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="member : ${members}">
-                <td th:text="${member.sequence}"></td>
-                <td th:text="${member.MemberId}"></td>
+                <td th:text="${member.memberSequence}"></td>
+                <td th:text="${member.member_id}"></td>
                 <td th:text="${member.Password}"></td>
                 <td th:text="${member.role}"></td>
                 <td>
-                    <a href="#" th:href="@{/member/{sequence}/edit (sequence=${member.sequence})}" class="btn btn-primary" role="button">정보 수정</a>
+                    <a href="#" th:href="@{/member/{memberSequence}/edit (memberSequence=${member.memberSequence})}" class="btn btn-primary" role="button">정보 수정</a>
                 </td>
                 <td>
-                    <a href="#" th:href="@{/member/{sequence}/delete (sequence=${member.sequence})}" class="btn btn-danger" role="button">정보 삭제</a>
+                    <a href="#" th:href="@{/member/{memberSequence}/delete (memberSequence=${member.memberSequence})}" class="btn btn-danger" role="button">정보 삭제</a>
                 </td>
             </tr>
             </tbody>

@@ -1,8 +1,5 @@
-package CRUD.demo.controller;
+package CRUD.demo.BoardPost;
 
-import CRUD.demo.Service.BoardPostService;
-import CRUD.demo.domain.BoardPost;
-import CRUD.demo.domain.Member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -74,10 +71,10 @@ public class BoardPostController {
      * Update
      * */
 
-    @GetMapping("post/{boardId}/edit")
-    public String updateBoardPost(@PathVariable("boardId")int boardId, Model model){ // 다 되고나서 BoardId를 int로 바꿔봐야겠다.(15:35)
+    @GetMapping("post/{board_sequence}/edit")
+    public String updateBoardPost(@PathVariable("board_sequence")int board_sequence, Model model){ // 다 되고나서 board_sequence를 int로 바꿔봐야겠다.(15:35)
 
-        BoardPost boardPost = boardPostService.findOne(boardId);
+        BoardPost boardPost = boardPostService.findOne(board_sequence);
 
         BoardPostForm boardPostForm = new BoardPostForm();
         boardPostForm.setCategory(boardPostForm.getCategory());
@@ -89,10 +86,10 @@ public class BoardPostController {
         return "post/updatePostForm";
     }
 
-    @PostMapping("post/{boardId}/edit")
-    public String updateMember(@PathVariable int boardId, @ModelAttribute("form") BoardPost boardPost){
+    @PostMapping("post/{board_sequence}/edit")
+    public String updateMember(@PathVariable int board_sequence, @ModelAttribute("form") BoardPost boardPost){
 
-        boardPostService.updateBoardPost(boardId, boardPost.getCategory(), boardPost.getTitle(), boardPost.getContent());
+        boardPostService.updateBoardPost(board_sequence, boardPost.getCategory(), boardPost.getTitle(), boardPost.getContent());
 
         return "redirect:/post/PostList";
     }
@@ -101,13 +98,13 @@ public class BoardPostController {
      * Delete
      * */
 
-    @RequestMapping(value = "post/{boardId}/delete", method = RequestMethod.GET)
-    public String DeleteController(@PathVariable int boardId){
-        System.out.println("Delete controller 실행");
-
-        boardPostService.delete(boardId);
-        return "redirect:/";
-    }
+//    @RequestMapping(value = "post/{board_sequence}/delete", method = RequestMethod.GET)
+//    public String DeleteController(@PathVariable int board_sequence){
+//        System.out.println("Delete controller 실행");
+//
+//        boardPostService.delete(board_sequence);
+//        return "redirect:/";
+//    }
 
 
 }

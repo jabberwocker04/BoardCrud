@@ -1,6 +1,5 @@
-package CRUD.demo.Repository;
+package CRUD.demo.Member;
 
-import CRUD.demo.domain.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -17,8 +16,8 @@ public class Member_Repository {
         em.persist(member);
     }
 
-    public Member findById(String memberId){
-        return em.find(Member.class, memberId);
+    public Member findById(int memberSequence){
+        return em.find(Member.class, memberSequence);
     }
 
     public List<Member> findAll() {
@@ -27,21 +26,21 @@ public class Member_Repository {
     }
 
 
-    public List<Member> findBySequence(Long sequence) {
-        return em.createQuery("select m from Member m where m.sequence = :sequence", Member.class)
-                .setParameter("sequence", sequence)
+    public List<Member> findByMemberSequence(int memberSequence) {
+        return em.createQuery("select m from Member m where m.member_sequence = :member_sequence", Member.class)
+                .setParameter("memberSequence", memberSequence)
                 .getResultList();
     }
 
     // Select 단 건 조회
-    public Member findOne(Long sequence){
-        return em.find(Member.class, sequence);
+    public Member findOne(int memberSequence){
+        return em.find(Member.class, memberSequence);
     }
 
-    public List<Member> delete(Long sequence){
+    public List<Member> delete(int memberSequence){
 
-        return em.createQuery("delete m from Member m where m.sequence = :sequence", Member.class)
-                .setParameter("Sequence", sequence)
+        return em.createQuery("delete m from Member m where m.member_sequence = :member_sequence", Member.class)
+                .setParameter("memberSequence", memberSequence)
                 .getResultList();
 
     }

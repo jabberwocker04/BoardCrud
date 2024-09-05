@@ -1,17 +1,15 @@
-package CRUD.demo.controller;
+package CRUD.demo.Member;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import jakarta.validation.constraints.NotEmpty;
 
 
 @Getter
 @Setter
 public class MemberForm {
 
-    private int sequence;
-    private String MemberId;
+    private int memberSequence;
+    private String member_id;
     private int Password;
     private String role;
 

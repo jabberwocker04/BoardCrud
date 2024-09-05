@@ -10,19 +10,19 @@
 
         <form th:object="${form}" method="post">
             <!-- id -->
-            <input type="hidden" th:field="*{memberSequence}" />
+            <input type="hidden" th:field="*{boardSequence}" />
 
             <div class="form-group">
-                <label th:for="member_id">member_id</label>
-                <input type="text" th:field="*{member_id}" class="form-control" placeholder="Id를 수정하세요" />
+                <label th:for="title">제목을 수정하세요.</label>
+                <input type="text" th:field="*{title}" class="form-control" placeholder="제목" />
             </div>
             <div class="form-group">
-                <label th:for="Password">Password</label>
-                <input type="number" th:field="*{Password}" class="form-control" placeholder="Password를 수정하세요" />
+                <label th:for="category">category를</label>
+                <input type="text" th:field="*{category}" class="form-control" placeholder="category를 수정하세요" />
             </div>
             <div class="form-group">
-                <label th:for="role">Role</label>
-                <input type="text" th:field="*{role}" class="form-control" placeholder="role을 수정하세요" />
+                <label th:for="content">content</label>
+                <input type="text" th:field="*{content}" class="form-control" placeholder="내용을 수정하세요" />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
