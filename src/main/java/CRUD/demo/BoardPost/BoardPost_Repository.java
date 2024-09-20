@@ -13,12 +13,12 @@ public class BoardPost_Repository {
 
     private final EntityManager em;
 
-    public void save(BoardPost boardPost){
+    public void save(BoardPostDto boardPost){
         em.persist(boardPost);
     }
 
-    public BoardPost findByBoard_sequence(int board_sequence){
-        return em.find(BoardPost.class, board_sequence);
+    public BoardPostDto findByBoard_sequence(long board_sequence){
+        return em.find(BoardPostDto.class, board_sequence);
     }
 
     //전체 조회
@@ -26,15 +26,15 @@ public class BoardPost_Repository {
     * 전체 조회가 HTMl에서 잘 불러와지지 않는다. 맵핑의 문제 같아서 계속 JPQL을 건드려 보는데, 이건 아닌 것 같다(상대적으로 SQL문이 쉽기 때문에)
     * 그래서 포기하고 Thymeleaf에서의 맵핑을 봐야겠다.
     * */
-    public List<BoardPost> findAll(){
-        return em.createQuery("select b from BoardPost b", BoardPost.class)
+    public List<BoardPostDto> findAll(){
+        return em.createQuery("select b from BoardPost b", BoardPostDto.class)
                 .getResultList();
 
     }
 
     // Select 단 건 조회
-    public BoardPost findOne(int board_sequence){
-        return em.find(BoardPost.class, board_sequence);
+    public BoardPostDto findOne(long board_sequence){
+        return em.find(BoardPostDto.class, board_sequence);
     }
 
     //Delete Method

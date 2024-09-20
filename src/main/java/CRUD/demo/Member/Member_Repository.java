@@ -16,7 +16,7 @@ public class Member_Repository {
         em.persist(member);
     }
 
-    public Member findById(int memberSequence){
+    public Member findById(Long memberSequence){
         return em.find(Member.class, memberSequence);
     }
 
@@ -26,18 +26,18 @@ public class Member_Repository {
     }
 
 
-    public List<Member> findByMemberSequence(int memberSequence) {
+    public List<Member> findByMemberSequence(Long memberSequence) {
         return em.createQuery("select m from Member m where m.member_sequence = :member_sequence", Member.class)
                 .setParameter("memberSequence", memberSequence)
                 .getResultList();
     }
 
     // Select 단 건 조회
-    public Member findOne(int memberSequence){
+    public Member findOne(Long memberSequence){
         return em.find(Member.class, memberSequence);
     }
 
-    public List<Member> delete(int memberSequence){
+    public List<Member> delete(Long memberSequence){
 
         return em.createQuery("delete m from Member m where m.member_sequence = :member_sequence", Member.class)
                 .setParameter("memberSequence", memberSequence)

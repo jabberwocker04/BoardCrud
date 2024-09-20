@@ -3,14 +3,23 @@ package CRUD.demo.Member;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Getter
 @Setter
 public class MemberForm {
 
-    private int memberSequence;
+    private Long memberSequence;
+
     private String member_id;
-    private int Password;
-    private String role;
+
+    private String Password;
+
+    private String Email;
+
+//    private String role;
+
+    private List<String> roles;
 
 }

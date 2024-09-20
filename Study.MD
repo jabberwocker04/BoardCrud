@@ -7,6 +7,8 @@
 <b>8월 30일 post CRUD 기능 완성 목표 </b>
 
 <b>9월 6일 페이징 기능 완료</b>
+-> 페이징에 앞서 그 외 BoardPost에 달릴 Comment 내용 추가를 위한 연기
+<b>9월 10일 Comment 기능 완료</b>
 
 
 - Web Publish> Thymeleaf, Bootstrap사용, 웹 연결
@@ -86,3 +88,11 @@
 
 2024 09 05
 > Member, BoardPost Entity명 변경 및 추가 후 에러 수정
+> 
+
+2024 09 12
+> ID값을 Long으로 쓰는 이유는, Int의 범위가 Long보다 작고, Long의 경우 null을 쓸 수 있기 때문이다.
+> 
+
+2024 09 13
+> Spring Validation, Spring Security 적용

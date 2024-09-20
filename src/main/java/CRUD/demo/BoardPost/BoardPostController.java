@@ -1,12 +1,18 @@
 package CRUD.demo.BoardPost;
 
+import CRUD.demo.Member.Member;
+import CRUD.demo.file.FileRepository;
+import CRUD.demo.security.CustomUserDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -14,6 +20,7 @@ import java.util.List;
 public class BoardPostController {
 
     private final BoardPostService boardPostService;
+    private final FileRepository fileRepository;
 
     /*
     * Create
@@ -34,7 +41,7 @@ public class BoardPostController {
             return "post/createPostForm";
         }
 
-        BoardPost boardPost = new BoardPost();
+        BoardPostDto boardPost = new BoardPostDto();
         boardPost.setCategory(boardPostForm.getCategory());
         boardPost.setTitle(boardPostForm.getTitle());
         boardPost.setAuthor(boardPostForm.getAuthor());
@@ -61,7 +68,7 @@ public class BoardPostController {
 
     @GetMapping("post/PostList")
     public String list(Model model){
-        List<BoardPost> boardPostList = boardPostService.findBoardPostList();
+        List<BoardPostDto> boardPostList = boardPostService.findBoardPostDtoList();
         model.addAttribute("boardPostList", boardPostList);
         System.out.println("Board Post List Read");
         return "post/PostList";
@@ -87,10 +94,12 @@ public class BoardPostController {
     }
 
     @PostMapping("post/{board_sequence}/edit")
-    public String updateMember(@PathVariable int board_sequence, @ModelAttribute("form") BoardPost boardPost){
-
-        boardPostService.updateBoardPost(board_sequence, boardPost.getCategory(), boardPost.getTitle(), boardPost.getContent());
-
+    public String updateMember(@AuthenticationPrincipal CustomUserDetails userDetails,
+                               @ModelAttribute BoardPostDto boardDto,
+                               @RequestParam(value = "newFiles", required = false) MultipartFile[] newFiles
+    ) throws IOException {
+        Member member = userDetails.getMember();
+        boardPostService.update(member, boardDto, newFiles);
         return "redirect:/post/PostList";
     }
 
@@ -106,6 +115,23 @@ public class BoardPostController {
 //        return "redirect:/";
 //    }
 
+
+    // 게시글 목록 페이지
+    // 페이징 정보를 담은 Pageable 객체 // 뷰에 전달할 데이터를 담은 Model 객체
+//    @GetMapping(value = {"/paging", "/"})
+//    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model){
+//        Page<BoardPostDto> boards = boardPostService.paging(pageable);
+//
+//        int blockLimit = 3; // 한번에 보여줄 페이징 블록의 개수
+//        int startPage = (int)Math.ceil((double)pageable.getPageNumber() / blockLimit - 1) * blockLimit + 1; // 1
+//        int endPage = (startPage+ blockLimit - 1) < boards.getTotalPages() ? (startPage + blockLimit -1) : boards.getTotalPages(); // 3
+//
+//        // 뷰에 데이터 전달
+//        model.addAttribute("boardList", boards);
+//        model.addAttribute("startPage", startPage);
+//        model.addAttribute("endPage", endPage);
+//        return "paging";
+//    }
 
 }
 

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class BoardPostForm {
 
-    private int BoardSequence; // sequence
+    private long BoardSequence; // sequence
     private String category;
     private String title;
     private String author;
