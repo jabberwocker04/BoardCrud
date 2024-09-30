@@ -16,9 +16,9 @@ public class Member_Repository {
         em.persist(member);
     }
 
-    public Member findById(Long memberSequence){
-        return em.find(Member.class, memberSequence);
-    }
+//    public Member findByMemberSequence(Long memberSequence){
+//        return em.find(Member.class, memberSequence);
+//    }
 
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class) // DB query와 비슷한데, from의 대상이 테이블이 아니라 Entity가 대상이 된다.
@@ -27,7 +27,7 @@ public class Member_Repository {
 
 
     public List<Member> findByMemberSequence(Long memberSequence) {
-        return em.createQuery("select m from Member m where m.member_sequence = :member_sequence", Member.class)
+        return em.createQuery("select m from Member m where m.memberSequence = :memberSequence", Member.class)
                 .setParameter("memberSequence", memberSequence)
                 .getResultList();
     }
@@ -39,7 +39,7 @@ public class Member_Repository {
 
     public List<Member> delete(Long memberSequence){
 
-        return em.createQuery("delete m from Member m where m.member_sequence = :member_sequence", Member.class)
+        return em.createQuery("delete m from Member m where m.memberSequence = :memberSequence", Member.class)
                 .setParameter("memberSequence", memberSequence)
                 .getResultList();
 

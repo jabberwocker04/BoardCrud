@@ -17,34 +17,33 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long CommentId;
 
-    private String member_id; // nickname 대신 쓰는 고유 id(String)
+    private String commenter; // nickname 대신 쓰는 고유 id(String)
 
-    @Column(nullable = false)
-    private String contents;
-
-    private LocalDateTime createDateTime;
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "boardSequence")
-    private BoardPost boardPost;
+    @JoinColumn(name = "BoardPost_boardPostSequence")
+    private BoardPost BoardPost;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberSequence")
+    @JoinColumn(name = "member_memberSequence")
     private Member member;
 
+    private LocalDateTime createTime;
+
     @Builder
-    public Comment(Long id, String member_id, String contents, BoardPost boardPost, LocalDateTime createDateTime, Member member){
-        this.id = id;
-        this.member_id = member_id;
-        this.contents = contents;
-        this.boardPost = boardPost;
-        this.createDateTime = createDateTime;
+    public Comment(Long CommentId, String commenter, String contents, BoardPost boardPost, LocalDateTime createTime, Member member){
+        this.CommentId = CommentId;
+        this.commenter = commenter;
+        this.content = contents;
+        this.BoardPost = boardPost;
+        this.createTime = createTime;
         this.member = member;
     }
 
     public void updateComment (CommentDto commentDto){
-        this.contents = commentDto.getContents();
+        this.content = commentDto.getContents();
     }
 }

@@ -12,7 +12,7 @@ public class MemberForm {
 
     private Long memberSequence;
 
-    private String member_id;
+    private String MemberId;
 
     private String Password;
 

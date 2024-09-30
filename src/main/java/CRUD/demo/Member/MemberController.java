@@ -69,7 +69,7 @@ public class MemberController {
         Member member = memberService.findOne(memberSequence);
 
         MemberForm memberform = new MemberForm();
-        memberform.setMember_id(member.getMember_id()); // setsequence로 되어있어서 중복되는 오류가 발생하고 있었다.
+        memberform.setMemberId(member.getMemberId()); // setsequence로 되어있어서 중복되는 오류가 발생하고 있었다.
         memberform.setPassword(member.getPassword());
 
         model.addAttribute("form", memberform); // html의         <form th:object="${form}" method="post"> 부분과 attributeName 을 맞춰주어야 한다.
@@ -80,7 +80,7 @@ public class MemberController {
     @PostMapping("member/{memberSequence}/edit")
     public String updateMember(@PathVariable Long memberSequence, @ModelAttribute("form") MemberForm memberForm){
 
-        memberService.updateMember(memberSequence, memberForm.getMember_id(), memberForm.getPassword(), memberForm.getRoles());
+        memberService.updateMember(memberSequence, memberForm.getMemberId(), memberForm.getPassword(), memberForm.getRoles());
 
         return "redirect:/member/MemberList";
     }

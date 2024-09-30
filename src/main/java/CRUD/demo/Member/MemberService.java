@@ -46,9 +46,9 @@ public class MemberService {
 
     //맴버 수정(update)
     @Transactional
-    public void updateMember(Long memberSequence, String member_id, String password, List<String> role) {
+    public void updateMember(Long memberSequence, String memberId, String password, List<String> role) {
         Member findMember = member_Repository.findOne(memberSequence);
-        findMember.setMember_id(member_id);
+        findMember.setMemberId(memberId);
         findMember.setPassword(password);
         findMember.setRoles(role);
     }

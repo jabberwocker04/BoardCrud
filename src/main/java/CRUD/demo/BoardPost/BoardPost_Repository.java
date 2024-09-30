@@ -17,9 +17,9 @@ public class BoardPost_Repository {
         em.persist(boardPost);
     }
 
-    public BoardPostDto findByBoard_sequence(long board_sequence){
-        return em.find(BoardPostDto.class, board_sequence);
-    }
+//    public BoardPostDto findByBoardPostSequence(Long BoardPostSequence){
+//        return em.find(BoardPostDto.class, BoardPostSequence);
+//    }
 
     //전체 조회
     /*
@@ -27,14 +27,14 @@ public class BoardPost_Repository {
     * 그래서 포기하고 Thymeleaf에서의 맵핑을 봐야겠다.
     * */
     public List<BoardPostDto> findAll(){
-        return em.createQuery("select b from BoardPost b", BoardPostDto.class)
+        return em.createQuery("select board_post from boardPostSequence b", BoardPostDto.class)
                 .getResultList();
 
     }
 
     // Select 단 건 조회
-    public BoardPostDto findOne(long board_sequence){
-        return em.find(BoardPostDto.class, board_sequence);
+    public BoardPostDto findOne(Long BoardPostSequence){
+        return em.find(BoardPostDto.class, BoardPostSequence);
     }
 
     //Delete Method

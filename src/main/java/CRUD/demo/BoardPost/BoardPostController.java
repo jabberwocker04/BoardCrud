@@ -1,10 +1,14 @@
 package CRUD.demo.BoardPost;
 
 import CRUD.demo.Member.Member;
+import CRUD.demo.file.BoardFile;
 import CRUD.demo.file.FileRepository;
 import CRUD.demo.security.CustomUserDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,39 +26,57 @@ public class BoardPostController {
     private final BoardPostService boardPostService;
     private final FileRepository fileRepository;
 
-    /*
+    /**
     * Create
-    * */
+    */
 
-    @GetMapping(value = "/post/new") // 글 작성 컨트롤러
-    public String createPostForm (Model model) {
-        model.addAttribute("boardPostForm", new BoardPostForm());
-        //     <form role="form" action="/post/new" th:object="${BoardPostForm}" method="post"> 부분의 th:object를 잘 못 설정해주고 있어서 오류가 떳었다.
-        //      attributeName과 th:object는 항상 동일해야 올바르게 Model을 보내줄 수 있다.
-        System.out.println("Post Controller Create form 실행");
-        return "post/createPostForm";
+    @GetMapping("/portfolio/create")
+    public String create() {
+        return "/portfolio/create"; // create.html 이동
     }
 
-    @PostMapping("post/new")
-    public String create(@Valid BoardPostForm boardPostForm, BindingResult result){
-        if(result.hasErrors()) {
-            return "post/createPostForm";
-        }
-
-        BoardPostDto boardPost = new BoardPostDto();
-        boardPost.setCategory(boardPostForm.getCategory());
-        boardPost.setTitle(boardPostForm.getTitle());
-        boardPost.setAuthor(boardPostForm.getAuthor());
-        boardPost.setContent(boardPostForm.getContent());
-
-
-        boardPostService.join(boardPost);
-        return "redirect:/";
-
-
+    // 입력 받은 데이터, 글 저장
+    // BoardDto: 게시글 데이터를 담은 DTO 객체
+    // 파일 불러 오기 (required=false) : 파일이 없을 때도 요청을 처리
+    @PostMapping("portfolio/save")
+    public String save(@AuthenticationPrincipal CustomUserDetails userDetails,
+                       @ModelAttribute BoardPostDto boardPostDto,
+                       @RequestParam (required=false) MultipartFile[] files) throws Exception {
+        if(userDetails == null) {throw new Exception("로그인이 필요합니다.");}
+        Member member = userDetails.getMember();
+        boardPostService.save(member, boardPostDto, files);
+        return "redirect:/board/";
     }
 
-    /*
+//    @GetMapping(value = "/portFolio/BoardPost/new") // 글 작성 컨트롤러
+//    public String createPostForm (Model model) {
+//        model.addAttribute("boardPostForm", new BoardPostForm());
+//        //     <form role="form" action="/post/new" th:object="${BoardPostForm}" method="post"> 부분의 th:object를 잘 못 설정해주고 있어서 오류가 떳었다.
+//        //      attributeName과 th:object는 항상 동일해야 올바르게 Model을 보내줄 수 있다.
+//        System.out.println("Post Controller Create form 실행");
+//        return "post/createPostForm";
+//    }
+
+//    @PostMapping("post/new") // 구 모델
+//    public String create(@Valid BoardPostForm boardPostForm, BindingResult result){
+//        if(result.hasErrors()) {
+//            return "post/createPostForm";
+//        }
+//
+//        BoardPostDto boardPost = new BoardPostDto();
+//        boardPost.setCategory(boardPostForm.getCategory());
+//        boardPost.setTitle(boardPostForm.getTitle());
+//        boardPost.setAuthor(boardPostForm.getAuthor());
+//        boardPost.setContent(boardPostForm.getContent());
+//        boardPostService.join(boardPost);
+//        return "redirect:/";
+//
+//    }
+
+
+
+
+    /**
     * Select(Read Post) List
     * Error는 나오지 않으나 List가 제대로 불러와 지지 않음 -> 경로가 잘못되었었음.
     * Could not resolve root entity 'Board_Post' 에러가 발생함.
@@ -66,7 +88,7 @@ public class BoardPostController {
     *  */
 
 
-    @GetMapping("post/PostList")
+    @GetMapping("/post/PostList")
     public String list(Model model){
         List<BoardPostDto> boardPostList = boardPostService.findBoardPostDtoList();
         model.addAttribute("boardPostList", boardPostList);
@@ -74,34 +96,32 @@ public class BoardPostController {
         return "post/PostList";
     }
 
-    /*
+    /**
      * Update
      * */
 
-    @GetMapping("post/{board_sequence}/edit")
-    public String updateBoardPost(@PathVariable("board_sequence")int board_sequence, Model model){ // 다 되고나서 board_sequence를 int로 바꿔봐야겠다.(15:35)
+//    @GetMapping("post/{board_sequence}/edit")
+//    public String updateBoardPostSequence(@PathVariable("BoardPostSequence")Long boardPostSequence, Model model){ // 다 되고나서 board_sequence를 int로 바꿔봐야겠다.(15:35)
+//
+//        BoardPost boardPost = boardPostService.findOne(boardPostSequence);
+//
+//        BoardPostForm boardPostForm = new BoardPostForm();
+//        boardPostForm.setCategory(boardPostForm.getCategory());
+//
+//        model.addAttribute("form", boardPostForm); // html의         <form th:object="${form}" method="post"> 부분과 attributeName 을 맞춰주어야 한다.
+//
+//        return "post/updatePostForm";
+//    }
 
-        BoardPost boardPost = boardPostService.findOne(board_sequence);
-
-        BoardPostForm boardPostForm = new BoardPostForm();
-        boardPostForm.setCategory(boardPostForm.getCategory());
-
-
-
-        model.addAttribute("form", boardPostForm); // html의         <form th:object="${form}" method="post"> 부분과 attributeName 을 맞춰주어야 한다.
-
-        return "post/updatePostForm";
-    }
-
-    @PostMapping("post/{board_sequence}/edit")
-    public String updateMember(@AuthenticationPrincipal CustomUserDetails userDetails,
-                               @ModelAttribute BoardPostDto boardDto,
-                               @RequestParam(value = "newFiles", required = false) MultipartFile[] newFiles
-    ) throws IOException {
-        Member member = userDetails.getMember();
-        boardPostService.update(member, boardDto, newFiles);
-        return "redirect:/post/PostList";
-    }
+//    @PostMapping("post/{board_sequence}/edit")
+//    public String updateMember(@AuthenticationPrincipal CustomUserDetails userDetails,
+//                               @ModelAttribute BoardPostDto boardPostDto,
+//                               @RequestParam(value = "newFiles", required = false) MultipartFile[] newFiles
+//    ) throws IOException {
+//        Member member = userDetails.getMember();
+//        boardPostService.update(member, boardPostDto, newFiles);
+//        return "redirect:/post/PostList";
+//    }
 
     /*
      * Delete
@@ -131,6 +151,25 @@ public class BoardPostController {
 //        model.addAttribute("startPage", startPage);
 //        model.addAttribute("endPage", endPage);
 //        return "paging";
+//    }
+
+
+
+    // 특정 게시글의 상세 정보를 보여주는 페이지로 이동
+//    @GetMapping("/{id}") // URL에서 게시글의 ID를 가져와 저장     // 페이징 정보를 담고 있는 객체, 기본 페이지 번호를 1로 설정
+//    public String paging(@PathVariable Long id, Model model, @PageableDefault(page = 1) Pageable pageable){
+//        // 해당 ID의 게시글 정보를 BoardDto 객체에 저장
+//        BoardPostDto boardPostDto = boardPostService.findByBoardPost(id);
+//
+//        // 뷰에 데이터 전달
+//        model.addAttribute("board", boardPostDto); // boardDto -> board(view)
+//        model.addAttribute("page", pageable.getPageNumber()); // 현재 페이지 번호 -> page(view)
+//
+//        // 해당 ID의 게시글에 첨부된 파일 정보를 가져와 List<BoardFile> 객체에 저장
+//        List<BoardFile> byBoardFiles = fileRepository.findByBoardPost_boardPostSequence(id);
+//        model.addAttribute("files",byBoardFiles); // byBoardFiles -> files(view)
+//
+//        return "detail"; // detail 뷰 반환
 //    }
 
 }

@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
@@ -9,7 +10,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>boardSequence<th>
+                <th>boardPostSequence<th>
                 <th>category<th>
                 <th>title<th>
                 <th>author<th>
@@ -19,19 +20,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="board_Post :${boardPostList}">
-                <td th:text="${board_Post.boardSequence}"></td>
-                <td th:text="${board_Post.category}"></td>
-                <td th:text="${board_Post.title}"></td>
-                <td th:text="${board_Post.author}"></td>
-                <td th:text="${board_Post.content}"></td>
-                <td th:text="${board_Post.views}"></td>
-                <td th:text="${board_Post.comment}"></td>
+            <tr th:each="boardPostSequence :${boardPostList}">
+                <td th:text="${boardPostSequence.boardSequence}"></td>
+                <td th:text="${boardPostSequence.category}"></td>
+                <td th:text="${boardPostSequence.title}"></td>
+                <td th:text="${boardPostSequence.author}"></td>
+                <td th:text="${boardPostSequence.content}"></td>
+                <td th:text="${boardPostSequence.views}"></td>
+                <td th:text="${boardPostSequence.comment}"></td>
                 <td>
-                    <a href="#" th:href="@{/post/{boardSequence}/edit (boardSequence=${board_Post.boardSequence})}" class="btn btn-primary" role="button">게시글 수정</a>
+                    <a href="#" th:href="@{/post/{boardPostSequence}/edit (boardPostSequence=${board_Post.boardSequence})}" class="btn btn-primary" role="button">게시글 수정</a>
                 </td>
                 <td>
-                    <a href="#" th:href="@{/post/{boardSequence}/delete (boardSequence=${board_Post.boardSequence})}" class="btn btn-danger" role="button">게시글 삭제</a>
+                    <a href="#" th:href="@{/post/{boardPostSequence}/delete (boardPostSequence=${board_Post.boardSequence})}" class="btn btn-danger" role="button">게시글 삭제</a>
                 </td>
             </tr>
 
@@ -41,8 +42,8 @@
 
     <div th:replace="fragments/footer :: footer" />
 
-</div> <!-- /container -->
+</div> &lt;!&ndash; /container &ndash;&gt;
 
 </body>
 
-</html>
+</html>-->

@@ -1,6 +1,7 @@
 package CRUD.demo.file;
 
 import CRUD.demo.BoardPost.BoardPost;
+import CRUD.demo.Comment.CommentDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,15 +10,14 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
-@Entity
 @Setter
+@Entity
 public class BoardFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long boardFileId;
 
-    // 파일 경로 - 필요 낫널, 길이 설정은 X
     @Column(nullable = false)
     private String filePath;
 
@@ -29,21 +29,22 @@ public class BoardFile {
 
     private Long fileSize;
 
-    // uuid(랜덤키) - 결국 저장이 되어야 하니까
+    // uuid(랜덤키) -> 저장을 위함
     private String uuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_sequence")
-    private BoardPost boardPost;
+    @JoinColumn(name = "BoardPost_boardPostSequence")
+    private BoardPost BoardPost;
 
     @Builder
-    public BoardFile(Long id, String filePath, String fileName, String fileType, Long fileSize, BoardPost boardpost, String uuid) {
-        this.id = id;
+    public BoardFile(Long boardFileId, String filePath, String fileName, String fileType, Long fileSize, String uuid, BoardPost boardPost) {
+        this.boardFileId = boardFileId;
         this.filePath = filePath;
         this.fileName = fileName;
         this.fileType = fileType;
         this.fileSize = fileSize;
         this.uuid = uuid;
-        this.boardPost = boardpost;
+        this.BoardPost = boardPost;
     }
+
 }

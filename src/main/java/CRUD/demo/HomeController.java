@@ -11,7 +11,7 @@ public class HomeController {
     @RequestMapping("/")
     public String Home() {
         System.out.println("Home!");
-        log.info("home Controller");
+        log.info("Home Controller Start");
         return "home";
     }
 

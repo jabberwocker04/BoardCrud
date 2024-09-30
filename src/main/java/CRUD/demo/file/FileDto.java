@@ -18,20 +18,32 @@ public class FileDto {
 
     private Long fileSize;
 
-    private Long boardSequence;
+    private Long boardPostSequence;
 
     // uuid(랜덤 키)
     private String uuid;
 
+//    public BoardFile toEntity(BoardPost boardPost){
+//        return BoardFile.builder()
+//                .filePath(filePath)
+//                .fileName(fileName)
+//                .fileType(fileType)
+//                .fileSize(fileSize)
+//                .uuid(uuid)
+//                .boardPost(boardPost)
+//                .build();
+//    }
+
+
     public BoardFile toEntity(BoardPost boardPost){
         return BoardFile.builder()
-                .filePath(filePath)
-                .fileName(fileName)
-                .fileType(fileType)
-                .fileSize(fileSize)
-                .uuid(uuid)
-                .boardpost(boardPost)
-                .build();
+            .filePath(filePath)
+            .fileName(fileName)
+            .fileType(fileType)
+            .fileSize(fileSize)
+            .uuid(uuid)
+            .boardPost(boardPost)
+            .build();
     }
 
     public static FileDto toFileDto(BoardFile boardFile){
@@ -40,7 +52,7 @@ public class FileDto {
                 boardFile.getFileName(),
                 boardFile.getFileType(),
                 boardFile.getFileSize(),
-                boardFile.getBoardPost().getBoardSequence(),
+                boardFile.getBoardPost().getBoardPostSequence(),
                 boardFile.getUuid()
         );
     }

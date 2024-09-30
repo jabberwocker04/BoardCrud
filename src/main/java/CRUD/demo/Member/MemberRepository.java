@@ -14,4 +14,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     void deleteByMemberSequence(Long memberSequence);
 
+    Optional<Member> findByMemberSequence(Long memberSequence);
+
 }
