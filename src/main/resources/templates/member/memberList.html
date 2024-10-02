@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <h2>관리자 전용 맴버 목록</h2>
+            <tr>
+                <th>memberSequence</th>
+                <th>memberId</th>
+                <th>password</th>
+                <th>role</th>
+                <th>email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.memberSequence}"></td>
+                <td th:text="${member.memberId}"></td>
+                <td th:text="${member.password}"></td>
+                <td th:text="${member.role}"></td>
+                <td th:text="${member.email}"></td>
+                <td>
+                    <a href="#" th:href="@{/member/{memberSequence}/edit (memberSequence=${member.memberSequence})}" class="btn btn-primary" role="button">정보 수정</a>
+                </td>
+                <td>
+                    <a href="#" th:href="@{/member/{memberSequence}/delete (memberSequence=${member.memberSequence})}" class="btn btn-danger" role="button">정보 삭제</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+
+</body>
+
+</html>

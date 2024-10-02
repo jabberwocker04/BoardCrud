@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 1em;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li a.active {
+    font-weight: bold;
+}
+
+.breadcrumbs {
+    margin: 1em 0;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-management {
+    width: 80%;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.search-form label,
+.search-form input,
+.search-form select,
+.search-form button {
+    margin-right: 1em;
+}
+
+.user-list {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-list th,
+.user-list td {
+    border: 1px solid #000;
+    padding: 0.5em;
+    text-align: left;
+}
+
+.pagination {
+    margin: 1em 0;
+}
+
+.pagination button {
+    margin: 0 0.2em;
+}
+
+.user-info {
+    margin-top: 2em;
+    width: 100%;
+}
+
+.user-info h3 {
+    margin-top: 0;
+}
+
+.user-info form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user-info form div {
+    flex: 1 1 45%;
+    margin-bottom: 1em;
+}
+
+.user-info form div label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.user-info form div input,
+.user-info form div select {
+    width: 100%;
+    padding: 0.5em;
+}
+
+.user-info .buttons {
+    flex: 1 1 100%;
+    text-align: center;
+}
+
+.user-info .buttons button {
+    margin: 0 0.5em;
+}
+
+.login-info {
+    margin-top: 2em;
+    width: 100%;
+}
+
+.login-info h3 {
+    margin-top: 0;
+}
