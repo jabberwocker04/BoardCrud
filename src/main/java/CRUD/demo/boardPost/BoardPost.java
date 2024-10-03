@@ -20,6 +20,7 @@ public class BoardPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "boardPostSequence")
     private Long boardPostSequence; // 게시글 순서
 
     private String category; // 게시글 카테고리
@@ -43,14 +44,13 @@ public class BoardPost {
     // orphanRemoval = true: 연결 관계가 끊어 지면 자동 삭제
     // fetch = FetchType.LAZY: 지연 로딩(성능 최적화)
     @OneToMany(mappedBy = "boardPost", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Comment> comment = new ArrayList<>(); // 09 23 지금까지 자동 생성된 Query를 mappedBy가 board_post가 아닌 boardpost로 받고 있었기 때문에 문제가 되었다.
+    private List<Comment> comments = new ArrayList<>(); // 09 23 지금까지 자동 생성된 Query를 mappedBy가 board_post가 아닌 boardpost로 받고 있었기 때문에 문제가 되었다.
 
     @OneToMany(mappedBy = "boardPost", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFile> boardFiles = new ArrayList<>();
 
     @Builder
-    public BoardPost(Long boardPostSequence, String category, String title, String content, String memberId, LocalDateTime updatedTime, Boolean fileExists){
-        this.boardPostSequence = boardPostSequence;
+    public BoardPost( String category, String title, String content, String memberId, LocalDateTime updatedTime, Boolean fileExists){
         this.category = category;
         this.title = title;
         this.content = content;

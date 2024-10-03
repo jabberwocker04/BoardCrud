@@ -22,7 +22,6 @@
                 <td th:text="${member.memberSequence}"></td>
                 <td th:text="${member.memberId}"></td>
                 <td th:text="${member.password}"></td>
-                <td th:text="${member.role}"></td>
                 <td th:text="${member.email}"></td>
                 <td>
                     <a href="#" th:href="@{/member/{memberSequence}/edit (memberSequence=${member.memberSequence})}" class="btn btn-primary" role="button">정보 수정</a>

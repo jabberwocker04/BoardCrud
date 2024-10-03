@@ -41,14 +41,13 @@ public class MemberController {
         Member member = new Member();
         member.setMemberId(memberform.getMemberId());
         member.setPassword(memberform.getPassword());
-        member.setRoles(Collections.singletonList(memberform.getRole()));
         member.setEmail(memberform.getEmail());
 
         memberService.join(member);
         return "redirect:/"; // 이렇게 하면 첫번째 페이지로 넘어간다.
     }
 
-    /*
+    /**
     * Select(Read Member) List
     * */
 
@@ -60,7 +59,7 @@ public class MemberController {
         return "member/MemberList";
     }
 
-    /*
+    /**
     * Update
     * */
 

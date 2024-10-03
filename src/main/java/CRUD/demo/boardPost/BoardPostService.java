@@ -156,7 +156,6 @@ public class BoardPostService {
 //            );
 
         return new BoardPost(
-                boardPost.getBoardPostSequence(),
                 boardPost.getCategory(),
                 boardPost.getTitle(),
                 boardPost.getContent(),

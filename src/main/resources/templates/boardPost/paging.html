@@ -103,11 +103,11 @@
         <th>작성자</th>
         <th>작성 시간</th>
     </tr>
-    <tr th:each="board: ${boardList}">
-        <td th:text="${board.getId()}"></td>
-        <td><a th:href="@{${board.getId}|(page = ${boardList.number + 1})}" th:text="${board.getTitle()}"></a></td>
-        <td th:text="${board.getNickName()}"></td>
-        <td th:text="*{#temporals.format(board.getCreateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    <tr th:each="boardPost: ${boardPostList}">
+        <td th:text="${boardPost.getId()}"></td>
+        <td><a th:href="@{${boardPost.getId}|(page = ${boardPostList.number + 1})}" th:text="${boardPost.getTitle()}"></a></td>
+        <td th:text="${boardPost.getNickName()}"></td>
+        <td th:text="*{#temporals.format(boardPost.getCreateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
     </tr>
 </table>
 
@@ -119,7 +119,7 @@ boardPostList == boardList
 
 -->
 <div class="paging-buttons">
-    <a th:href="@{/board/paging(page=1)}">처음</a>
+    <a th:href="@{/boardPost/paging(page=1)}">처음</a>
     <a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">이전</a>
 
     <span th:each="page: ${#numbers.sequence(startPage, endPage)}">

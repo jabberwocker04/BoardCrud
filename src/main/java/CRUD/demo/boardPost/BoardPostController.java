@@ -29,9 +29,11 @@ public class BoardPostController {
     * Create
     * */
 
-    @GetMapping("/create")
-    public String create() {
-        return "create"; // create.html 이동
+    @GetMapping(value = "/boardPost/new")
+    public String createForm(Model model) {
+        model.addAttribute("boardPostForm", new BoardPostForm());
+        System.out.println("BoardPost Controller Create form 실행");
+        return "boardPost/createPostForm"; // create.html 이동
     }
 
     // 입력 받은 데이터, 글 저장
@@ -47,19 +49,21 @@ public class BoardPostController {
 //        return "redirect:/board/";
 //    }
 
-    @PostMapping("post/new")
+    @PostMapping("boardPost/new")
     public String create(@Valid BoardPostForm boardPostForm, BindingResult result){
         if(result.hasErrors()) {
-            return "post/createPostForm";
+            return "boardPost/createPostForm";
         }
 
-        BoardPost boardPost = new BoardPost(boardPostForm.getBoardPostSequence(), boardPostForm.getCategory(), boardPostForm.getTitle(), boardPostForm.getContent(), boardPostForm.getAuthor(), LocalDateTime.now(), boardPostForm.getFileExists());
+        BoardPost boardPost = new BoardPost(boardPostForm.getCategory(), boardPostForm.getTitle(), boardPostForm.getContent(), boardPostForm.getAuthor(), LocalDateTime.now(), boardPostForm.getFileExists());
+
+        LocalDateTime localDateTime = LocalDateTime.now();
 
         boardPost.setCategory(boardPostForm.getCategory());
         boardPost.setTitle(boardPostForm.getTitle());
         boardPost.setContent(boardPostForm.getContent());
         boardPost.setFileExists(boardPostForm.getFileExists());
-        boardPost.setUpdatedTime(boardPostForm.getUpdatedTime());
+        boardPost.setUpdatedTime(localDateTime);
 
 
         boardPostService.join(boardPost);
@@ -93,12 +97,12 @@ public class BoardPostController {
     *  */
 
 
-    @GetMapping("post/PostList")
-    public String list(Model model){
+    @GetMapping("boardPost/boardPostList") // boardPost 목록 Get
+    public String list(@PathVariable Model model){
         List<BoardPost> boardPostList = boardPostService.findBoardPostList();
         model.addAttribute("boardPostList", boardPostList);
         System.out.println("Board Post List Read");
-        return "post/PostList";
+        return "boardPost/boardPostList";
     }
 
     /**
@@ -142,7 +146,7 @@ public class BoardPostController {
 
     // 게시글 목록 페이지
     // 페이징 정보를 담은 Pageable 객체 // 뷰에 전달할 데이터를 담은 Model 객체
-    @GetMapping(value = {"/paging", "/"})
+    @GetMapping(value = {"/boardPost/paging"})
     public String paging(@PageableDefault(page = 1) Pageable pageable, Model model){
         Page<BoardPost> boards = boardPostService.paging(pageable);
 
@@ -154,7 +158,7 @@ public class BoardPostController {
         model.addAttribute("boardList", boards);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        return "paging";
+        return "/boardPost/paging";
     }
 
     // 특정 게시글의 상세 정보를 보여주는 페이지로 이동

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<!--<style>-->
+
+<!--    .paging-buttons {-->
+<!--    margin-top: 20px;-->
+<!--    text-align: center;-->
+<!--}-->
+
+<!--.paging-buttons a {-->
+<!--    display: inline-block;-->
+<!--    padding: 8px 12px;-->
+<!--    margin: 0 5px;-->
+<!--    background-color: #3498db;-->
+<!--    color: white;-->
+<!--    text-decoration: none;-->
+<!--    border-radius: 4px;-->
+<!--}-->
+
+<!--.paging-buttons a:hover {-->
+<!--    background-color: #2071a7;-->
+<!--}-->
+
+<!--.create-button {-->
+<!--    margin-bottom: 20px;-->
+<!--}-->
+
+<!--.create-button button {-->
+<!--    background-color: #4caf50;-->
+<!--    color: white;-->
+<!--    border: none;-->
+<!--    padding: 10px 20px;-->
+<!--    text-align: center;-->
+<!--    text-decoration: none;-->
+<!--    display: inline-block;-->
+<!--    font-size: 16px;-->
+<!--    cursor: pointer;-->
+<!--    border-radius: 5px;-->
+<!--}-->
+
+<!--.create-button button:hover {-->
+<!--    background-color: #45a049;-->
+<!--}-->
+
+<!--</style>-->
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>boardPostSequence<th>
+                <th>category<th>
+                <th>title<th>
+                <th>author<th>
+                <th>content<th>
+                <th>fileExists<th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="boardPost : ${boardPostList}">
+                <td th:text="${boardPost.boardPostSequence}"></td>
+                <td th:text="${boardPost.category}"></td>
+                <td th:text="${boardPost.title}"></td>
+                <td th:text="${boardPost.author}"></td>
+                <td th:text="${boardPost.content}"></td>
+                <td th:text="${boardPost.fileExists}"></td>
+<!--                <td>-->
+<!--                    <a href="#" th:href="@{/boardPost/{boardPostSequence}/edit (boardPostSequence=${boardPost.boardPostSequence})}" class="btn btn-primary" role="button">게시글 수정</a>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <a href="#" th:href="@{/boardPost/{boardPostSequence}/delete (boardPostSequence=${boardPost.boardPostSequence})}" class="btn btn-danger" role="button">게시글 삭제</a>-->
+<!--                </td>-->
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+<!--    <div class="paging-buttons">-->
+<!--        <a th:href="@{/post/paging(page=1)}">처음</a>-->
+<!--        <a th:href="${boardPostList.first} ? '#' : @{/ost/paging(page=${boardPostList.number})}">이전</a>-->
+
+<!--        <span th:each="page: ${#numbers.sequence(startPage, endPage)}">-->
+<!--            <span th:if="${page == boardPostList.number + 1}" th:text="${page}"></span>-->
+<!--            <span th:unless="${page == boardPostList.number + 1}">-->
+<!--                <a th:href="@{/board_Post/paging(page=${page})}" th:text="${page}"></a>-->
+<!--            </span>-->
+<!--        </span>-->
+
+<!--        <a th:href="${boardPostList.last} ? '#' : @{/post/paging(page=${boardPostList.number + 2})}">다음</a>-->
+<!--        <a th:href="@{/post/paging(page=${boardPostList.totalPages})}">마지막</a>-->
+<!--    </div>-->
+
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+
+</body>
+
+</html>

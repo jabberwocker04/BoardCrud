@@ -35,7 +35,6 @@ public class BoardPostForm {
 
     public BoardPost toEntity(Member member){
         return BoardPost.builder()
-                .boardPostSequence(boardPostSequence)
                 .category(category)
                 .title(title)
                 .content(content)

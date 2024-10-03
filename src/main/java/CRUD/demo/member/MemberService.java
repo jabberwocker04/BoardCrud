@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -17,7 +16,6 @@ public class MemberService {
 
     @Transactional
     public Long join(Member member){
-
         member_Repository.save(member);
         return member.getMemberSequence();
     }
@@ -40,11 +38,12 @@ public class MemberService {
 
     //맴버 수정(update)
     @Transactional
-    public void updateMember(Long memberSequence, String member_id, String password, String role) {
+    public void updateMember(Long memberSequence, String member_id, String password, String email) {
         Member findMember = member_Repository.findOne(memberSequence);
+
         findMember.setMemberId(member_id);
         findMember.setPassword(password);
-        findMember.setRoles(Collections.singletonList(role));
+        findMember.setEmail(email);
     }
 
     //맴버 삭제(delete)

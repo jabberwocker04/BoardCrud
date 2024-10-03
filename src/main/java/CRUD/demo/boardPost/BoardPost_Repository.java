@@ -26,7 +26,7 @@ public class BoardPost_Repository {
     * 그래서 포기하고 Thymeleaf에서의 맵핑을 봐야겠다.
     * */
     public List<BoardPost> findAll(){
-        return em.createQuery("select b from BoardPost b", BoardPost.class)
+        return em.createQuery("select b from boardPost b", BoardPost.class)
                 .getResultList();
 
     }

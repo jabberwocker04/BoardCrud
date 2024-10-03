@@ -11,7 +11,7 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
 
-    <form role="form" action="/post/new" th:object="${boardPostForm}" method="post">
+    <form role="form" action="/boardPost/new" th:object="${boardPostForm}" method="post">
         <!--        form에 있는 action="/member/new"로 controller가 GET/POST를 하는 것 같다.-->
             <!--        <div class="form-group">-->
             <!--            <label th:for="board_sequence">board_sequence</label>-->
@@ -22,13 +22,20 @@
             <!--filed.hasErrors라는 에러가 있으면 name field에 대헤서 에러 메세지를 뽑아서 출력해준다. -> 적어놓은 에러로 렌더링이 된다.-->
         <!--        </div>-->
         <div class="form-group">
+            <label th:for="Title">Title</label>
+            <input type="text" th:field="*{title}" class="form-control" placeholder="제목을 입력하세요"
+                   th:class="${#fields.hasErrors('title')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Incorrect</p>
+            <!--filed.hasErrors라는 에러가 있으면 name field에 대헤서 에러 메세지를 뽑아서 출력해준다. -> 적어놓은 에러로 렌더링이 된다.-->
+        </div>
+        <div class="form-group">
             <label th:for="category">category</label>
             <input type="text" th:field="*{category}" class="form-control" placeholder="카테고리">
         </div>
-        <div class="form-group">
-            <label th:for="title">제목</label>
-            <input type="text" th:field="*{title}" class="form-control" placeholder="title">
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label th:for="title">제목</label>-->
+<!--            <input type="text" th:field="*{title}" class="form-control" placeholder="title">-->
+<!--        </div>-->
         <div class="form-group">
             <label th:for="author">author</label>
             <input type="text" th:field="*{author}" class="form-control" placeholder="author를 입력하세요">
