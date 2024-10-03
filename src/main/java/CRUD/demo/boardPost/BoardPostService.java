@@ -39,7 +39,7 @@ public class BoardPostService {
 
     //게시글 전체 조회
     @Transactional
-    public List<BoardPost> findBoardPostList(){
+    public List<BoardPost> findBoardPostLists(){
         return boardPost_Repository.findAll();
     }
 
@@ -127,44 +127,44 @@ public class BoardPostService {
     }
 
     // 페이지 리스트를 가져 와서 보여 줌
-    public Page<BoardPost> paging(Pageable pageable){
-        // 페이지 시작 번호 세팅
-        int page = pageable.getPageNumber() -1 ;
-        // 페이지에 포함 될 게시물 개수
-        int size = 5;
-        // 전체 게시물 불러옴
-        Page<BoardPost> boardPosts = boardPostRepository.findAll(
-                // 정렬 처리 해서 가져 옴(자동)
-                PageRequest.of(page, size));
-        // Board를 BoardDto로 매핑 하면서, boardFiles도 FileDto 리스트로 변환하여 처리
-        return boardPosts.map(boardPost -> {
-            List<FileDto> fileDtos = boardPost.getBoardFiles().stream()
-                    .map(FileDto::toFileDto)
-                    .collect(Collectors.toList());
-
-            // BoardDto 객체 생성시 boardFiles도 함께 생성자에 넘겨줌
-//            return new BoardPostForm(
-//                    board.getId(),
-//                    board.getTitle(),
-//                    board.getUser().getNickname(),
-//                    board.getContents(),
-//                    board.getCreateTime(),
-//                    board.getUpdateTime(),
-//                    board.getFileExists(),
-//                    fileDtos,
-//                    board.getUser().getId()
-//            );
-
-        return new BoardPost(
-                boardPost.getCategory(),
-                boardPost.getTitle(),
-                boardPost.getContent(),
-                boardPost.getMember().getMemberId(),
-                boardPost.getUpdatedTime(),
-                boardPost.getFileExists()
-        );
-    });
-    }
+//    public Page<BoardPost> paging(Pageable pageable){
+//        // 페이지 시작 번호 세팅
+//        int page = pageable.getPageNumber() -1 ;
+//        // 페이지에 포함 될 게시물 개수
+//        int size = 5;
+//        // 전체 게시물 불러옴
+//        Page<BoardPost> boardPosts = boardPostRepository.findAll(
+//                // 정렬 처리 해서 가져 옴(자동)
+//                PageRequest.of(page, size));
+//        // Board를 BoardDto로 매핑 하면서, boardFiles도 FileDto 리스트로 변환하여 처리
+//        return boardPosts.map(boardPost -> {
+//            List<FileDto> fileDtos = boardPost.getBoardFiles().stream()
+//                    .map(FileDto::toFileDto)
+//                    .collect(Collectors.toList());
+//
+//            // BoardDto 객체 생성시 boardFiles도 함께 생성자에 넘겨줌
+////            return new BoardPostForm(
+////                    board.getId(),
+////                    board.getTitle(),
+////                    board.getUser().getNickname(),
+////                    board.getContents(),
+////                    board.getCreateTime(),
+////                    board.getUpdateTime(),
+////                    board.getFileExists(),
+////                    fileDtos,
+////                    board.getUser().getId()
+////            );
+//
+//        return new BoardPost(
+//                boardPost.getCategory(),
+//                boardPost.getTitle(),
+//                boardPost.getContent(),
+//                boardPost.getMember().getMemberId(),
+//                boardPost.getUpdatedTime(),
+//                boardPost.getFileExists()
+//        );
+//    });
+//    }
 
     public BoardFile getFileByBoardId(Long boardPostSequence) {
         List<BoardFile> boardFiles = fileRepository.findByBoardPost_BoardPostSequence(boardPostSequence);

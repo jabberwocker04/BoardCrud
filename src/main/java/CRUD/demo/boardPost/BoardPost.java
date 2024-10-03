@@ -49,14 +49,14 @@ public class BoardPost {
     @OneToMany(mappedBy = "boardPost", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFile> boardFiles = new ArrayList<>();
 
-    @Builder
-    public BoardPost( String category, String title, String content, String memberId, LocalDateTime updatedTime, Boolean fileExists){
-        this.category = category;
-        this.title = title;
-        this.content = content;
-        this.author = memberId;
-        this.updatedTime = updatedTime;
-        this.fileExists = fileExists;
-    }
+//    @Builder
+//    public BoardPost( String category, String title, String content, String memberId, LocalDateTime updatedTime, Boolean fileExists){
+//        this.category = category;
+//        this.title = title;
+//        this.content = content;
+//        this.author = memberId;
+//        this.updatedTime = updatedTime;
+//        this.fileExists = fileExists;
+//    }
 
 }

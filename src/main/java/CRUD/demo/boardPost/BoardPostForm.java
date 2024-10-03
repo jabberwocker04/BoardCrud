@@ -33,16 +33,16 @@ public class BoardPostForm {
 
     private Long memberSequence;
 
-    public BoardPost toEntity(Member member){
-        return BoardPost.builder()
-                .category(category)
-                .title(title)
-                .content(content)
-                .memberId(author)
-                .updatedTime(updatedTime)
-                .fileExists(fileExists)
-                .build();
-    }
+//    public BoardPost toEntity(Member member){
+//        return BoardPost.builder()
+//                .category(category)
+//                .title(title)
+//                .content(content)
+//                .memberId(author)
+//                .updatedTime(updatedTime)
+//                .fileExists(fileExists)
+//                .build();
+//    }
 
     public static BoardPostForm toBoardPostForm(BoardPost boardPost){
         List<FileDto> fileDto = boardPost.getBoardFiles().stream()

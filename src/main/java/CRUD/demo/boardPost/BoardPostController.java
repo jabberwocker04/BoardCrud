@@ -23,7 +23,6 @@ import java.util.List;
 public class BoardPostController {
 
     private final BoardPostService boardPostService;
-    private final FileRepository fileRepository;
 
     /**
     * Create
@@ -55,8 +54,8 @@ public class BoardPostController {
             return "boardPost/createPostForm";
         }
 
-        BoardPost boardPost = new BoardPost(boardPostForm.getCategory(), boardPostForm.getTitle(), boardPostForm.getContent(), boardPostForm.getAuthor(), LocalDateTime.now(), boardPostForm.getFileExists());
-
+//        BoardPost boardPost = new BoardPost(boardPostForm.getCategory(), boardPostForm.getTitle(), boardPostForm.getContent(), boardPostForm.getAuthor(), LocalDateTime.now(), boardPostForm.getFileExists());
+        BoardPost boardPost = new BoardPost();
         LocalDateTime localDateTime = LocalDateTime.now();
 
         boardPost.setCategory(boardPostForm.getCategory());
@@ -64,7 +63,6 @@ public class BoardPostController {
         boardPost.setContent(boardPostForm.getContent());
         boardPost.setFileExists(boardPostForm.getFileExists());
         boardPost.setUpdatedTime(localDateTime);
-
 
         boardPostService.join(boardPost);
         return "redirect:/";
@@ -98,9 +96,9 @@ public class BoardPostController {
 
 
     @GetMapping("boardPost/boardPostList") // boardPost 목록 Get
-    public String list(@PathVariable Model model){
-        List<BoardPost> boardPostList = boardPostService.findBoardPostList();
-        model.addAttribute("boardPostList", boardPostList);
+    public String list(Model model){
+        List<BoardPost> boardPostLists = boardPostService.findBoardPostLists();
+        model.addAttribute("boardPostLists", boardPostLists);
         System.out.println("Board Post List Read");
         return "boardPost/boardPostList";
     }
@@ -109,28 +107,28 @@ public class BoardPostController {
      * Update
      * */
 
-    @GetMapping("post/{board_sequence}/edit")
-    public String updateBoardPost(@PathVariable("board_sequence")Long boardPostSequence, Model model){ // 다 되고나서 board_sequence를 int로 바꿔봐야겠다.(15:35)
+//    @GetMapping("post/{boardPostSequence}/edit")
+//    public String updateBoardPost(@PathVariable("boardPostSequence")Long boardPostSequence, Model model){ // 다 되고나서 board_sequence를 int로 바꿔봐야겠다.(15:35)
+//
+//        BoardPost boardPost = boardPostService.findOne(boardPostSequence);
+//
+//        BoardPostForm boardPostForm = new BoardPostForm();
+//        boardPostForm.setCategory(boardPostForm.getCategory());
+//
+//
+//
+//        model.addAttribute("boardPostForm", boardPostForm); // html의         <form th:object="${form}" method="post"> 부분과 attributeName 을 맞춰주어야 한다.
+//
+//        return "post/updatePostForm";
+//    }
 
-        BoardPost boardPost = boardPostService.findOne(boardPostSequence);
-
-        BoardPostForm boardPostForm = new BoardPostForm();
-        boardPostForm.setCategory(boardPostForm.getCategory());
-
-
-
-        model.addAttribute("form", boardPostForm); // html의         <form th:object="${form}" method="post"> 부분과 attributeName 을 맞춰주어야 한다.
-
-        return "post/updatePostForm";
-    }
-
-    @PostMapping("post/{board_sequence}/edit")
-    public String updateMember(@PathVariable Long boardPostSequence, @ModelAttribute("form") BoardPost boardPost){
-
-        boardPostService.updateBoardPost(boardPostSequence, boardPost.getCategory(), boardPost.getTitle(), boardPost.getContent());
-
-        return "redirect:/post/PostList";
-    }
+//    @PostMapping("post/{board_sequence}/edit")
+//    public String updateMember(@PathVariable Long boardPostSequence, @ModelAttribute("form") BoardPost boardPost){
+//
+//        boardPostService.updateBoardPost(boardPostSequence, boardPost.getCategory(), boardPost.getTitle(), boardPost.getContent());
+//
+//        return "redirect:/post/PostList";
+//    }
 
     /**
      * Delete
@@ -144,39 +142,39 @@ public class BoardPostController {
 //        return "redirect:/";
 //    }
 
-    // 게시글 목록 페이지
-    // 페이징 정보를 담은 Pageable 객체 // 뷰에 전달할 데이터를 담은 Model 객체
-    @GetMapping(value = {"/boardPost/paging"})
-    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model){
-        Page<BoardPost> boards = boardPostService.paging(pageable);
-
-        int blockLimit = 3; // 한번에 보여줄 페이징 블록의 개수
-        int startPage = (int)Math.ceil((double)pageable.getPageNumber() / blockLimit - 1) * blockLimit + 1; // 1
-        int endPage = (startPage+ blockLimit - 1) < boards.getTotalPages() ? (startPage + blockLimit -1) : boards.getTotalPages(); // 3
-
-        // 뷰에 데이터 전달
-        model.addAttribute("boardList", boards);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        return "/boardPost/paging";
-    }
-
-    // 특정 게시글의 상세 정보를 보여주는 페이지로 이동
-    @GetMapping("/{id}") // URL에서 게시글의 ID를 가져와 저장     // 페이징 정보를 담고 있는 객체, 기본 페이지 번호를 1로 설정
-    public String paging(@PathVariable Long boardPostSequence, Model model, @PageableDefault(page = 1) Pageable pageable){
-        // 해당 ID의 게시글 정보를 BoardDto 객체에 저장
-        BoardPost boardPostDto = boardPostService.findOne(boardPostSequence);
-
-        // 뷰에 데이터 전달
-        model.addAttribute("boardPost", boardPostDto); // boardDto -> board(view)
-        model.addAttribute("page", pageable.getPageNumber()); // 현재 페이지 번호 -> page(view)
-
-        // 해당 ID의 게시글에 첨부된 파일 정보를 가져와 List<BoardFile> 객체에 저장
-        List<BoardFile> byBoardFiles = fileRepository.findByBoardPost_BoardPostSequence(boardPostSequence);
-        model.addAttribute("files",byBoardFiles); // byBoardFiles -> files(view)
-
-        return "detail"; // detail 뷰 반환
-    }
+//    // 게시글 목록 페이지
+//    // 페이징 정보를 담은 Pageable 객체 // 뷰에 전달할 데이터를 담은 Model 객체
+//    @GetMapping(value = {"/boardPost/paging"})
+//    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model){
+//        Page<BoardPost> boards = boardPostService.paging(pageable);
+//
+//        int blockLimit = 3; // 한번에 보여줄 페이징 블록의 개수
+//        int startPage = (int)Math.ceil((double)pageable.getPageNumber() / blockLimit - 1) * blockLimit + 1; // 1
+//        int endPage = (startPage+ blockLimit - 1) < boards.getTotalPages() ? (startPage + blockLimit -1) : boards.getTotalPages(); // 3
+//
+//        // 뷰에 데이터 전달
+//        model.addAttribute("boardList", boards);
+//        model.addAttribute("startPage", startPage);
+//        model.addAttribute("endPage", endPage);
+//        return "/boardPost/paging";
+//    }
+//
+//    // 특정 게시글의 상세 정보를 보여주는 페이지로 이동
+//    @GetMapping("/{id}") // URL에서 게시글의 ID를 가져와 저장     // 페이징 정보를 담고 있는 객체, 기본 페이지 번호를 1로 설정
+//    public String paging(@PathVariable Long boardPostSequence, Model model, @PageableDefault(page = 1) Pageable pageable){
+//        // 해당 ID의 게시글 정보를 BoardDto 객체에 저장
+//        BoardPost boardPostDto = boardPostService.findOne(boardPostSequence);
+//
+//        // 뷰에 데이터 전달
+//        model.addAttribute("boardPost", boardPostDto); // boardDto -> board(view)
+//        model.addAttribute("page", pageable.getPageNumber()); // 현재 페이지 번호 -> page(view)
+//
+//        // 해당 ID의 게시글에 첨부된 파일 정보를 가져와 List<BoardFile> 객체에 저장
+//        List<BoardFile> byBoardFiles = fileRepository.findByBoardPost_BoardPostSequence(boardPostSequence);
+//        model.addAttribute("files",byBoardFiles); // byBoardFiles -> files(view)
+//
+//        return "detail"; // detail 뷰 반환
+//    }
 
 }
 
