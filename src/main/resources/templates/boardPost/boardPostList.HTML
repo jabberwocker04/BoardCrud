@@ -61,7 +61,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="boardPost : ${boardPostList}">
+            <tr th:each="boardPost : ${boardPostLists}">
                 <td th:text="${boardPost.boardPostSequence}"></td>
                 <td th:text="${boardPost.category}"></td>
                 <td th:text="${boardPost.title}"></td>

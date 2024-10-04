@@ -1,5 +1,54 @@
 <h1>Jgh CRUD_Board </h1>
 
+# BoardCrud v 1.0.0
+
+## 개발환경
+IDE: IntelliJ IDEA Community  
+Spring Boot 3.2.7 
+JDK 17
+mysql 8.0.39 
+Lombok  
+Spring Data JPA
+Spring Web    
+Thymeleaf
+
+## 기술 스택
+JAVA
+HTML 5  
+mysql
+
+## ERD
+<div class="ERD_image">
+<img src="capture/image/ERD.png">
+</div>
+
+## 게시판 주요 기능
+<div class="home_image">
+<img src="/capture/image/home.png">
+</div>
+
+### 회원가입
+<div class="member_create_image">
+<img src="/capture/image/member_new.png">
+</div>
+
+### 회원목록
+<div class="member_list_image">
+<img src="/capture/image/member_list.PNG">
+</div>
+
+### 게시글 작성
+<div class="boardPost_create_image">
+<img src="/capture/image/boardPost_new.png">
+</div>
+
+
+### 작성 게시글 목록
+<div class="boardPost_create_image">
+<img src="/capture/image/boardPost_list.png">
+</div>
+
+
 <h3>회원가입, post CURD, 이미지 업로드, 댓글, 즐겨찾기 목록(카테고리), 페이징 기능 게시판 사이트</h3>
 
 <b>8월 27일 회원가입 기능 완료
@@ -7,6 +56,8 @@
 <b>8월 30일 post CRUD 기능 완성 목표 </b>
 
 <b>9월 6일 페이징 기능 완료</b>
+
+<b>9월 5일 ~ 10월 2일까지 기능 오류 및 수정 불가하여 boardPost, Member 단계로 회귀 </b>
 
 
 - Web Publish> Thymeleaf, Bootstrap사용, 웹 연결
@@ -86,3 +137,4 @@
 
 2024 09 05
 > Member, BoardPost Entity명 변경 및 추가 후 에러 수정
+
