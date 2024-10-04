@@ -23,13 +23,14 @@ mysql
 </div>
 
 ## 게시판 주요 기능
+### 홈페이지
 <div class="home_image">
-<img src="/capture/image/home.png">
+<img src="/capture/image/home.PNG">
 </div>
 
 ### 회원가입
 <div class="member_create_image">
-<img src="/capture/image/member_new.png">
+<img src="/capture/image/member_new.PNG">
 </div>
 
 ### 회원목록, 수정 및 삭제
@@ -39,13 +40,13 @@ mysql
 
 ### 게시글 작성
 <div class="boardPost_create_image">
-<img src="/capture/image/boardPost_new.png">
+<img src="/capture/image/boardPost_new.PNG">
 </div>
 
 
 ### 작성 게시글 목록, 수정 및 삭제
 <div class="boardPost_create_image">
-<img src="/capture/image/boardPost_list.png">
+<img src="/capture/image/boardPost_list.PNG">
 </div>
 
 
