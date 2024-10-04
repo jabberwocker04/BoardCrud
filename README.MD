@@ -32,7 +32,7 @@ mysql
 <img src="/capture/image/member_new.png">
 </div>
 
-### 회원목록
+### 회원목록, 수정 및 삭제
 <div class="member_list_image">
 <img src="/capture/image/member_list.PNG">
 </div>
@@ -43,7 +43,7 @@ mysql
 </div>
 
 
-### 작성 게시글 목록
+### 작성 게시글 목록, 수정 및 삭제
 <div class="boardPost_create_image">
 <img src="/capture/image/boardPost_list.png">
 </div>

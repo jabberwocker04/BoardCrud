@@ -107,40 +107,38 @@ public class BoardPostController {
      * Update
      * */
 
-//    @GetMapping("post/{boardPostSequence}/edit")
-//    public String updateBoardPost(@PathVariable("boardPostSequence")Long boardPostSequence, Model model){ // 다 되고나서 board_sequence를 int로 바꿔봐야겠다.(15:35)
-//
-//        BoardPost boardPost = boardPostService.findOne(boardPostSequence);
-//
-//        BoardPostForm boardPostForm = new BoardPostForm();
-//        boardPostForm.setCategory(boardPostForm.getCategory());
-//
-//
-//
-//        model.addAttribute("boardPostForm", boardPostForm); // html의         <form th:object="${form}" method="post"> 부분과 attributeName 을 맞춰주어야 한다.
-//
-//        return "post/updatePostForm";
-//    }
+    @GetMapping("boardPost/{boardPostSequence}/edit")
+    public String updateBoardPost(@PathVariable("boardPostSequence")Long boardPostSequence, Model model){ // 다 되고나서 board_sequence를 int로 바꿔봐야겠다.(15:35)
 
-//    @PostMapping("post/{board_sequence}/edit")
-//    public String updateMember(@PathVariable Long boardPostSequence, @ModelAttribute("form") BoardPost boardPost){
-//
-//        boardPostService.updateBoardPost(boardPostSequence, boardPost.getCategory(), boardPost.getTitle(), boardPost.getContent());
-//
-//        return "redirect:/post/PostList";
-//    }
+        BoardPost boardPost = boardPostService.findOne(boardPostSequence);
+
+        BoardPostForm boardPostForm = new BoardPostForm();
+        boardPostForm.setCategory(boardPostForm.getCategory());
+
+        model.addAttribute("boardPostForm", boardPostForm); // html의         <form th:object="${form}" method="post"> 부분과 attributeName 을 맞춰주어야 한다.
+
+        return "boardPost/updatePostForm";
+    }
+
+    @PostMapping("boardPost/{boardPostSequence}/edit")
+    public String updateMember(@PathVariable Long boardPostSequence, @ModelAttribute("form") BoardPost boardPost){
+
+        boardPostService.updateBoardPost(boardPostSequence, boardPost.getCategory(), boardPost.getTitle(), boardPost.getContent());
+
+        return "redirect:/boardPost/boardPostList";
+    }
 
     /**
      * Delete
      * */
 
-//    @RequestMapping(value = "post/{board_sequence}/delete", method = RequestMethod.GET)
-//    public String DeleteController(@PathVariable int board_sequence){
-//        System.out.println("Delete controller 실행");
-//
-//        boardPostService.delete(board_sequence);
-//        return "redirect:/";
-//    }
+    @RequestMapping(value = "boardPost/{boardPostSequence}/delete", method = RequestMethod.GET)
+    public String DeleteController(@PathVariable Long boardPostSequence){
+        System.out.println("Delete controller 실행");
+
+        boardPostService.delete(boardPostSequence);
+        return "redirect:/";
+    }
 
 //    // 게시글 목록 페이지
 //    // 페이징 정보를 담은 Pageable 객체 // 뷰에 전달할 데이터를 담은 Model 객체

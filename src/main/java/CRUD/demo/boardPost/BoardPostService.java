@@ -84,11 +84,11 @@ public class BoardPostService {
 //        //
 //    }
 //
-//    @Transactional
-//    public void delete(int board_sequence){
-//        boardPostRepository.deleteByBoardSequence(board_sequence);
-//        System.out.println(board_sequence+"is Deleted!");
-//    }
+    @Transactional
+    public void delete(Long boardPostSequence){
+        boardPostRepository.deleteByBoardPostSequence(boardPostSequence);
+        System.out.println(boardPostSequence+"is Deleted!");
+    }
 
     @Transactional
     public void deleteFile(Long boardPostSequence, Long memberSequence){

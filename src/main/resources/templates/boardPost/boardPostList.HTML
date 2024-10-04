@@ -68,12 +68,12 @@
                 <td th:text="${boardPost.author}"></td>
                 <td th:text="${boardPost.content}"></td>
                 <td th:text="${boardPost.fileExists}"></td>
-<!--                <td>-->
-<!--                    <a href="#" th:href="@{/boardPost/{boardPostSequence}/edit (boardPostSequence=${boardPost.boardPostSequence})}" class="btn btn-primary" role="button">게시글 수정</a>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <a href="#" th:href="@{/boardPost/{boardPostSequence}/delete (boardPostSequence=${boardPost.boardPostSequence})}" class="btn btn-danger" role="button">게시글 삭제</a>-->
-<!--                </td>-->
+                <td>
+                    <a href="#" th:href="@{/boardPost/{boardPostSequence}/edit (boardPostSequence=${boardPost.boardPostSequence})}" class="btn btn-primary" role="button">게시글 수정</a>
+                </td>
+                <td>
+                    <a href="#" th:href="@{/boardPost/{boardPostSequence}/delete (boardPostSequence=${boardPost.boardPostSequence})}" class="btn btn-danger" role="button">게시글 삭제</a>
+                </td>
             </tr>
 
             </tbody>
